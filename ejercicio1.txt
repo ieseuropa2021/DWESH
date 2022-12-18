@@ -1,0 +1,68 @@
+1.- Reflexiona sobre los mecanismos disponibles para acceder a la información almacenada en una base de datos desde PHP y cuál resulta más ventajoso si luego deseas poder cambiar el motor de bases de datos. Razona tu respuesta.
+
+	PHP es un lenguaje de programación que nos permite acceder a la información que necesite una aplicación empleando distintos motores de accesos a una gran variedad de BBDD (más de 15 sistemas gestores de bases de datos:  PostgreSQL, IBM DB2, SQLite, SQL, Server, MySQL, Oracle,  etc). Para que PHP pueda acceder a dichos sistemas gestores de BBDD son necesarias extensiones específicas(extensiones nativas) para cada sistema gestor de base de datos. Ello conllevaba que si una aplicación deseaba acceder a una información almacenada en una BBD IMB DB2, tendríamos que instalar y utilizar su extensión específica.
+	Si en algún momento deseamos modificar el motor gestor de la BBDD tendríamos que modificar la aplicación puesto que las funciones de cada gestor de BBDD difieren de unos a otros.
+	A partir de la versión 5 de PHP se introdujo en el lenguaje una extensión para acceder de una forma común a distintos sistemas gestores: PDO. La gran ventaja de PDO está clara: podemos seguir utilizando una misma sintaxis aunque cambiemos el motor de nuestra base de datos, salvo parámetros específicos al establecer las conexiones. No obstante, no tendremos que realizar unos cambios significativos en la aplicación
+
+	La gran ventaja del acceso a datos mediante PDO es la disponibilidad de un conjunto común de funciones independientes del gestor de BBDD. No obstante, en situaciones muy particulares, puede que deseemos emplear las extensiones nativas por su mayor velocidad o más potencia al permitir el acceso a funciones más específicas del gestor.
+	
+	
+
+
+2. Enumera todos mecanismos que podemos emplear para acceder a una base de datos MySQL y razona cual utilizarías basandote en la reflexión anterior.
+	Teniendo en cuenta lo anterior, y por la documentación sobre MySQL para acceder a una BBDD mediante PHP podemos emplear una extensón nativa específica para MySQL(MySQLi) o bien PDO. Para comunicarse con el servidor MySQL se empleaba un driver de bajo nivel, libmysql que no estaba optimizado para PHP. A partir de la versión 5.3 de PHP, se emplea un nuevo driver mejorado específicamente para mysqlnd.
+	La opción preferida sería PDO salvo en situaciones muy específicas de la aplicación debidas a tiempos críticos de respuesta.
+	
+	
+
+3. Investiga que diferencias hay entre MySQL y MongoDB, y reflexiona sobre que limitaciones o ventajas tendría el uso de una u otra.
+
+	La gran diferencia entre una y otra es:
+	MySQL se emplea para BBDD "relacionales", es decir, la información(datos) se organizan en tablas que pueden estar relacionadas unas con otras(casi seguro, 99,9999..%). Cada tabla tiene un esquema perfectamente definido y establecido(campos, tipo, tamaño, restricciones de valores, relaciones entre distintas tablas,..). Para el acceso a los datos se emplea un lenguaje de consultas estructurado (SQL). Actualmente es propiedad de Oracle aunque una versión de software libre es MariaDB
+	MongoDB para BBDD NoSQL, es decir, bases de datos no relacionales, almacenando la información relacionada en documentos en formato similar a JSON. Se emplea el lenguaje de consulta MongoDB(MQL) para el acceso a los datos. En cada documento la información no tiene que tener la misma estructura no siendo necesario declarar su estructura previamente.
+	
+	
+	Ventajas de MySQL sobre MongoDB:
+		La salida de los datos se puede estructurar fácilmente.
+		Los datos presentan integridad referencial.
+		Al tener un esquema definido, son más útiles para análisis de datos y estudios estadísticos.
+		Son fáciles de administrar al tener un esquema fijado de antemano.
+		Para aplicaciones que tengan que realizar transacciones complejas es la mejor opción.
+		Tecnología madura.
+		Amplia comunidad y sólida.
+		
+			
+	Ventajas de MongoDB sobre MySQL:
+		Es una BBDD en la nube que permite el manejo de datos sin una estructura perdeterminada, adaptándose a cualquier tipo de objetos, evolucionando según las necesidades del cliente.
+		Presenta una gran escalabilidad horizontal y disponibilidad (en la nube).
+		Si se necesitan añadir nuevos campos, no es necesario remodelar ningún esquema.
+		Los datos están distribuidos por varios servidores.
+		Consultas(no complejas) rápidas de lectura/escritura sobre los datos puesto que las relaciones entre los datos no suelen existir.
+		Apropiada para almacenar información no estructurada en documentos/archivos muy diversos.
+		Manejar grandes volúmenes de datos y BBDD grandes.
+		
+		
+		
+	Desventajas de MySQL sobre MongoDDB
+		En MYSQL, puesto que debemos establecer las tablas/relaciones de los datos, las aplicaciones quedan supeditadas totalmente a esta restricción.
+		Si es necesario añadir/modificar nuevos campos deberemos modificar el esquema y las aplicaciones implicadas.
+		Las consultas a datos que se encuentran en varias tablas, suponen una carga de uniones para crear la respuesta a la petición.
+		Difícil escalabilidad horizontal. 
+		
+		
+	Desventajas de MongoDB sobre MySQL:	
+		Al no tener un esquema fijo los datos, las salidas estructuradas de la información es más complicada.
+		Si se necesitan modificar datos, se deben modificar en todas las colecciones en que aparecen. En otro caso, aparecerán problemas de consistencia de los datos.
+		Si se desean realizar consultas complejas, la complejidad de la solución aumenta considerablemente.
+		Tecnología joven.
+		Para asegurar la consistencia debe renunciar a la disponibilidad aunque permite el particionado de la información.
+	
+
+
+
+Bibliografía:
+a) https://guiadev.com/mysql-vs-mongodb/
+b) Apuntes de la unidad 2.(https://drive.google.com/file/d/18exjwO9_cFyqcQb_8sYCPXCR_tpbr-Io/view?usp=sharing)
+c) https://www.mongodb.com/es/compare/mongodb-mysql
+
+
